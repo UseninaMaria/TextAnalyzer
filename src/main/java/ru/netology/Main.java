@@ -46,8 +46,8 @@ public class Main {
 
         Thread textThread = new Thread(() -> {
             for (int i = 0; i < 10_000; i++) {
+                String generatedText = generateText("abc", 100_000);
                 try {
-                    String generatedText = generateText("abc", 100_000);
                     namesA.put(generatedText);
                     namesB.put(generatedText);
                     namesC.put(generatedText);
@@ -85,9 +85,9 @@ public class Main {
                 while (!namesC.isEmpty()) {
                     countingSymbol(namesC.take(), 'c');
                 }
-                } catch (InterruptedException e) {
-                    return;
-                }
+            } catch (InterruptedException e) {
+                return;
+            }
         });
 
 
@@ -103,5 +103,7 @@ public class Main {
         System.out.println("символов 'a': " + countA.get());
         System.out.println("символов 'b': " + countB.get());
         System.out.println("символов 'c': " + countC.get());
+
+        textThread.interrupt();
     }
 }
